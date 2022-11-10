@@ -63,3 +63,25 @@ class Grade:
             grades.append(cls(grade)) #1.- cls(grade) crea una instancia en base al diccionario 2.- grades.append() me agrega esa instancia a la lista de calificaciones
         
         return grades
+    
+    @classmethod
+    def get_by_id(cls, formulario):
+        #formulario = {id: VALOR}
+        query = "SELECT * FROM grades WHERE id = %(id)s"
+        result = connectToMySQL('beltreviewer').query_db(query, formulario)
+        grade = cls(result[0]) #1.- result[0] = diccionario de la lista que me regresó el SELECT, 2.- cls() Me transforma el diccionario en objeto de Grade
+        return grade
+    
+    @classmethod
+    def update(cls, formulario):
+        #formulario = DICCIONARIO CON EL FORMULARIO DE edit_grade.html
+        query = "UPDATE grades SET alumno=%(alumno)s, stack=%(stack)s, fecha=%(fecha)s, calificacion=%(calificacion)s, cinturon=%(cinturon)s, user_id=%(user_id)s WHERE id=%(id)s"
+        result = connectToMySQL('beltreviewer').query_db(query, formulario)
+        return result
+
+    @classmethod
+    def delete(cls, formulario):
+        #formulario = {id: 1}
+        query = "DELETE FROM grades WHERE id=%(id)s"
+        result = connectToMySQL('beltreviewer').query_db(query, formulario)
+        return result

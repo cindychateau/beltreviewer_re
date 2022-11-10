@@ -36,7 +36,10 @@
                             <td>{{grade.calificacion}}</td>
                             <td>{{grade.cinturon}}</td>
                             <td>
-                                
+                                {% if grade.cinturon != "Sin Cinturón" %}
+                                    <a href="/edit/grade/{{grade.id}}" class="btn btn-warning">Editar</a>
+                                    <a href="/delete/grade/{{grade.id}}" class="btn btn-danger">Borrar</a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endif %}
